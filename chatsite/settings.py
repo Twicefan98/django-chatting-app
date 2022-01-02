@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -99,6 +100,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Set Auth User Model
+AUTH_USER_MODEL = 'chat.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
