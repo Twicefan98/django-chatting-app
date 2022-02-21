@@ -1,63 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="./index.js" defer></script> -->
-    <title>Chat Page</title>
+    <meta charset="utf-8"/>
+    <title>Chat Rooms</title>
 </head>
 <body>
-    <h1>Chat with those interested in Climbing!</h1>
-    <div id="wrapper">
-        <div id="chatbox">
-            <textarea id="chat-log" cols="100" rows="20"></textarea>
-        </div>
-
-        <input type="text" id="chat-input" />
-        <input type="submit" id="chat-submit" />
-
-    </div>
+    What chat room would you like to enter?<br>
+    <input id="room-name-input" type="text" size="100"><br>
+    <input id="room-name-submit" type="button" value="Enter">
 
     <script>
-        const chatSocket = new WebSocket(
-            'ws://'
-            + window.location.host
-            + '/ws/chat/'
-            + 'RYAN'
-            + '/'
-        );
-
-        chatSocket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            console.log(data);
-            document.querySelector('#chat-log').value += (data.message + "\n")
-        }
-
-        chatSocket.onclose = function(e) {
-            console.log('Chat Socket closed unexpectedly');
-        }
-
-        let chatInput = document.querySelector('#chat-input')
-        let chatSubmit = document.querySelector('#chat-submit')
-        chatInput.addEventListener(Keyboard, enterMessage)
-        console.log(chatInput)
-
-        function enterMessage(e) {
-            if (e.keyCode === 13) {
-                chatSubmit.click()
+        document.querySelector('#room-name-input').focus();
+        document.querySelector('#room-name-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#room-name-submit').click();
             }
-        }
+        };
 
-        document.querySelector('#chat-submit').onclick = function(e) {
-            const messageInputDom = document.querySelector('#chat-input')
-            const message = messageInputDom.value
-            chatSocket.send(JSON.stringify({
-                'message': message
-            }));
-            console.log(message)
-            messageInputDom.value = '';
-        }
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            window.location.pathname = '/chat/' + roomName + '/';
+        };
     </script>
 </body>
 </html>
