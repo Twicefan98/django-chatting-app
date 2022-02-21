@@ -1,4 +1,4 @@
-from django.conf.urls import url
+# chat/routing.py
 from django.urls import re_path
 
 from . import consumer
